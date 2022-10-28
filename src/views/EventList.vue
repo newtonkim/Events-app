@@ -7,6 +7,7 @@
 
 <script>
 import EventCard from "../components/EventCard.vue";
+import EventService from '../Services/EventService.js'
 
 export default {
   name: "EventList",
@@ -16,56 +17,20 @@ export default {
 
     data() {
     return {
-      events: [
-        {
-        id: 4554443,
-        category: "animal welfaire",
-        title: "Dog adoption Day",
-        description: "Find your new pet",
-        location: "kings way",
-        date: "October 28, 2022",
-        time: "12:00",
-        pestAllowed: true,
-        organizer: "Newton",
-        },
-
-        {
-        id: 4554467,
-        category: "Food",
-        title: "Matooke Show case Uganda",
-        description: "Indeginous food",
-        location: "Masaka",
-        date: "April 12, 2022",
-        time: "10:00",
-        pestAllowed: true,
-        organizer: "Juuko",
-        },
-        {
-        id: 4554889,
-        category: "Cars",
-        title: "Subaru Forester Sti",
-        description: "Modern subaru with AWD",
-        location: "Namugongo",
-        date: "Dec 05, 2022",
-        time: "8:00",
-        pestAllowed: true,
-        organizer: "Nyamu",
-        },
-        {
-        id: 4556432,
-        category: "Art",
-        title: "The Dodger",
-        description: "The beam of life",
-        location: "Hens Town",
-        date: "January 17, 2022",
-        time: "11:00",
-        pestAllowed: true,
-        organizer: "Mat",
-        },
-      
-      ] 
+      events: null
     }
   },
+  created() {
+    EventService.getEvents()
+    .then(response => {
+
+      this.events = response.data
+      // console.log('events:', response.data);
+    })
+      .catch(error => {
+        console.log(error);
+    })
+  }
 }
 </script>
 
